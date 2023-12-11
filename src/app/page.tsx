@@ -1,6 +1,13 @@
+import RootLayout from "@/components/Layout/RootLayout"
+
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+            <RootLayout>
+                Home
+            </RootLayout>
+    </div>
   )
 }
 export default Home
