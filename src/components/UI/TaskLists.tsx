@@ -4,18 +4,20 @@ import { Button, Input, Select } from "antd";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import TaskCard from "./TaskCard";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { filterData, searched } from "@/redux/slices/filterSlice";
 
 const { Search } = Input;
 
 const TaskLists = () => {
-    const [searchQuery, setSearchQuery] = useState<string>("");
-    const [filterDomain, setFilterDomain] = useState<string>("");
-
+    const dispatch = useAppDispatch()
+    const {searchTerm,status} = useAppSelector(state=>state.filter)
+console.log(searchTerm, status)
     const handleSearch = (value: string) => {
-        setSearchQuery(value);
+        dispatch(searched(value))
       };
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
+    const handleChange = (value: boolean | null) => {
+        dispatch(filterData(value))
       };
   return (
     <div className="mx-8 sm:mx-24">
@@ -36,9 +38,9 @@ const TaskLists = () => {
           size="middle"
           style={{ width: 150, marginRight: 16 }}
           options={[
-            { value: 'All', label: 'All' },
-            { value: 'true', label: 'Complete' },
-            { value: 'false', label: 'InComplete' },
+            { value: null, label: 'All' },
+            { value: true, label: 'Complete' },
+            { value: false, label: 'InComplete' },
           ]}
         >
         </Select>
