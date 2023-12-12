@@ -4,7 +4,9 @@ import TaskLists from '@/components/UI/TaskLists';
 function Home() {
   return (
     <div>
+      <RootLayout>
         <TaskLists />
+      </RootLayout>
     </div>
   );
 }

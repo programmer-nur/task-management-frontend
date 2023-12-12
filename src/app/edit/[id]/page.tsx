@@ -1,3 +1,5 @@
+import RootLayout from "@/components/Layout/RootLayout";
+
 interface IProps {
     params: any;
   }
@@ -5,7 +7,9 @@ interface IProps {
 const TaskById = ({ params }: IProps) => {
     const {id} = params
   return (
-    <div>TaskById {id}</div>
+    <RootLayout>
+      TaskById {id}
+      </RootLayout>
   )
 }
 export default TaskById
