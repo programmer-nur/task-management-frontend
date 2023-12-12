@@ -10,20 +10,20 @@ import { filterData, searched } from "@/redux/slices/filterSlice";
 const { Search } = Input;
 
 const TaskLists = () => {
-    const dispatch = useAppDispatch()
-    const {searchTerm,status} = useAppSelector(state=>state.filter)
-console.log(searchTerm, status)
-    const handleSearch = (value: string) => {
-        dispatch(searched(value))
-      };
-    const handleChange = (value: boolean | null) => {
-        dispatch(filterData(value))
-      };
+  const dispatch = useAppDispatch();
+const { searchTerm, status } = useAppSelector((state) => state.filter);
+
+
+
+  const handleSearch = (value: string) => {
+    dispatch(searched(value));
+  };
+  const handleChange = (value: boolean | null) => {
+    dispatch(filterData(value));
+  };
   return (
     <div className="mx-8 sm:mx-24">
-      <div
-      className="my-10 flex flex-wrap justify-center items-center gap-3"
-      >
+      <div className="my-10 flex flex-wrap justify-center items-center gap-3">
         <Search
           placeholder="Search By Name"
           allowClear
@@ -38,13 +38,14 @@ console.log(searchTerm, status)
           size="middle"
           style={{ width: 150, marginRight: 16 }}
           options={[
-            { value: null, label: 'All' },
-            { value: true, label: 'Complete' },
-            { value: false, label: 'InComplete' },
+            { value: null, label: "All" },
+            { value: true, label: "Complete" },
+            { value: false, label: "InComplete" },
           ]}
-        >
-        </Select>
-        <Button size="middle"  type="primary"><PlusOutlined /> Create Task</Button>
+        ></Select>
+        <Button size="middle" type="primary">
+          <PlusOutlined /> Create Task
+        </Button>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <TaskCard />

@@ -3,6 +3,7 @@ import { axiosBaseQuery } from '@/helpers/axios/axiosBaseQuery';
 
 export const baseApi = createApi({
   reducerPath: 'api',
-  baseQuery: axiosBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
+  baseQuery: axiosBaseQuery({ baseUrl: 'http://localhost:8000' }),
   endpoints: () => ({}),
+  tagTypes: ['task'],
 });
