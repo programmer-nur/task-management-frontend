@@ -1,13 +1,12 @@
-import RootLayout from "@/components/Layout/RootLayout"
+import RootLayout from '@/components/Layout/RootLayout';
 
-
-const Home = () => {
+function Home() {
   return (
     <div>
-            <RootLayout>
-                Home
-            </RootLayout>
+      <RootLayout>
+        Home
+      </RootLayout>
     </div>
-  )
+  );
 }
-export default Home
+export default Home;

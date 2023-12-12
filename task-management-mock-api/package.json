@@ -1,0 +1,17 @@
+{
+    "name": "task-mock-server",
+    "version": "1.0.0",
+    "description": "Mock API for Task Management",
+    "main": "index.js",
+    "scripts": {
+      "dev": "json-server --watch db.json --no-cors true --port 8000"
+    },
+    "dependencies": {
+      "json-server": "^0.17.0"
+    },
+    "devDependencies": {},
+    "keywords": [],
+    "author": "Nur",
+    "license": "MIT"
+  }
+  

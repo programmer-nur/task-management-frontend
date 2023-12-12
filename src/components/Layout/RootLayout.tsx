@@ -1,21 +1,24 @@
-"use client";
-import { Layout } from "antd";
+'use client';
+
+import { Layout } from 'antd';
+import { ReactNode } from 'react';
+import AppHeader from './AppHeader';
+import AppFooter from './AppFooter';
+
 const { Content } = Layout;
-import { ReactNode } from "react";
-import AppHeader from "./AppHeader";
-import AppFooter from "./AppFooter";
+
 type PropsType = {
   children: ReactNode;
 };
 
-const RootLayout = ({ children }: PropsType) => {
+function RootLayout({ children }: PropsType) {
   return (
     <Layout>
       <AppHeader />
       <Content
         style={{
-          padding: "0 24px",
-          minHeight: "100vh",
+          padding: '0 24px',
+          minHeight: '100vh',
         }}
       >
         {children}
@@ -23,5 +26,5 @@ const RootLayout = ({ children }: PropsType) => {
       <AppFooter />
     </Layout>
   );
-};
+}
 export default RootLayout;

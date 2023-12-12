@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { Input } from "antd";
-import { useFormContext, Controller } from "react-hook-form";
+import { Input } from 'antd';
+import { useFormContext, Controller } from 'react-hook-form';
 
 interface IInput {
   name: string;
   type?: string;
-  size?: "large" | "small" | "middle";
+  size?: 'large' | 'small' | 'middle';
   value?: string;
   id?: string;
   placeholder?: string;
@@ -14,7 +14,7 @@ interface IInput {
   label?: string;
 }
 
-const InputFiled = ({
+function InputFiled({
   name,
   type,
   size,
@@ -22,35 +22,39 @@ const InputFiled = ({
   id,
   placeholder,
   label,
-}: IInput) => {
-  const { control,formState:{errors} } = useFormContext();
+}: IInput) {
+  const { control, formState: { errors } } = useFormContext();
   return (
     <>
-    {label ? label : null}
-    <Controller
-      control={control}
-      name={name}
-      render={({ field }) => (
-        type === 'password' ?
-        <Input.Password
-          type={type}
-          size={size}
-          id={id}
-          placeholder={placeholder}
-          {...field}
-          value={value ? value : field.value}
-        /> : <Input
-        type={type}
-        id={id}
-        size={size}
-        placeholder={placeholder}
-        {...field}
-        value={value ? value : field.value}
+      {label || null}
+      <Controller
+        control={control}
+        name={name}
+        render={({ field }) => (
+          type === 'password'
+            ? (
+              <Input.Password
+                type={type}
+                size={size}
+                id={id}
+                placeholder={placeholder}
+                {...field}
+                value={value || field.value}
+              />
+            ) : (
+              <Input
+                type={type}
+                id={id}
+                size={size}
+                placeholder={placeholder}
+                {...field}
+                value={value || field.value}
+              />
+            )
+        )}
       />
-      )}
-    />
     </>
   );
-};
+}
 
 export default InputFiled;
