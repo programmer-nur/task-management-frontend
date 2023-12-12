@@ -11,7 +11,7 @@ type PropsType = {
   children: ReactNode;
 };
 
-function RootLayout({ children }: PropsType) {
+function RootLayou({ children }: PropsType) {
   return (
     <Layout>
       <AppHeader />
@@ -27,4 +27,4 @@ function RootLayout({ children }: PropsType) {
     </Layout>
   );
 }
-export default RootLayout;
+export default RootLayou;

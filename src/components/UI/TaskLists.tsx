@@ -1,6 +1,6 @@
 'use client';
 
-import { Button, Input, Modal,Select, message } from 'antd';
+import { Button, Input, Modal,Select, Spin, message } from 'antd';
 import { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import TaskCard from './TaskCard';
@@ -19,6 +19,7 @@ const TaskLists = () => {
   const dispatch = useAppDispatch();
   const { searchTerm, status } = useAppSelector((state) => state.filter);
 
+//   create and get task
   const [createTask] = useCreateTaskMutation()
   const {
     data,
@@ -30,7 +31,6 @@ const TaskLists = () => {
   const tasks = data as ITask[]
 
 
-  console.log(status,'age')
 //   checked task complete or incomplete
   const filterTasks= tasks?.filter((task:ITask)=>{
     if(status === null){
@@ -41,7 +41,7 @@ const TaskLists = () => {
 
   })
 
-  console.log(filterTasks,'pore')
+//   Task search implementation
   const filteredData = filterTasks?.filter((task) => {
     const lowercaseSearchText = searchTerm.toLowerCase();
     return (
@@ -49,9 +49,11 @@ const TaskLists = () => {
       task?.description?.toLowerCase().includes(lowercaseSearchText)
     );
   });
+
+
   // decide what to render
   let content = null;
-  if (isLoading) content = <div>Loaing</div>;
+  if (isLoading) content = <div className='flex justify-center items-center'><Spin size='large' /></div>;
 
   if (!isLoading && isError)
     content = <div className="col-span-12">{error as string}</div>;
@@ -81,11 +83,12 @@ const TaskLists = () => {
       const res = await createTask(taskData).unwrap();
       if (res?.id) {
         message.success("Task Create successfully");
+        setIsModalOpen(false);
       }
     } catch (err: any) {
       message.error(err.message);
     }
-    setIsModalOpen(false);
+    
   };
   return (
     <div className="mx-8 sm:mx-24">
