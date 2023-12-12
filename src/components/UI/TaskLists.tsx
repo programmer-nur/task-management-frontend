@@ -21,12 +21,34 @@ const TaskLists = () => {
 
   const [createTask] = useCreateTaskMutation()
   const {
-    data: tasks,
+    data,
     isError,
     isLoading,
     error,
   } = useGetAllTasksQuery(undefined);
 
+  const tasks = data as ITask[]
+
+
+  console.log(status,'age')
+//   checked task complete or incomplete
+  const filterTasks= tasks?.filter((task:ITask)=>{
+    if(status === null){
+       return task
+    }else{
+       return task.completed === status
+    }
+
+  })
+
+  console.log(filterTasks,'pore')
+  const filteredData = filterTasks?.filter((task) => {
+    const lowercaseSearchText = searchTerm.toLowerCase();
+    return (
+      task?.title?.toLowerCase().includes(lowercaseSearchText) ||
+      task?.description?.toLowerCase().includes(lowercaseSearchText)
+    );
+  });
   // decide what to render
   let content = null;
   if (isLoading) content = <div>Loaing</div>;
@@ -34,12 +56,12 @@ const TaskLists = () => {
   if (!isLoading && isError)
     content = <div className="col-span-12">{error as string}</div>;
 
-  if (!isError && !isLoading && tasks?.length === 0) {
+  if (!isError && !isLoading && filteredData?.length === 0) {
     content = <div className="col-span-12">No Task found!</div>;
   }
 
-  if (!isError && !isLoading && tasks?.length > 0) {
-    content = tasks.map((task: ITask) => (
+  if (!isError && !isLoading && filteredData?.length > 0) {
+    content = filteredData.map((task: ITask) => (
       <TaskCard key={task.id} task={task} />
     ));
   }
