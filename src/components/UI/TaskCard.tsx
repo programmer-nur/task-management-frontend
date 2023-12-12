@@ -1,4 +1,6 @@
-const TaskCard = () => {
+import { ITask } from "@/types/common";
+
+const TaskCard = ({task}:{task:ITask}) => {
     return (
       <div>
         <article className="rounded-xl border-2 border-gray-100 bg-white">
