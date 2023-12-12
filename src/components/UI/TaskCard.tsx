@@ -34,7 +34,7 @@ const TaskCard = ({ task }: { task: ITask }) => {
     <>
 
     <Card hoverable  actions={[
-        <p>Details</p>,
+        <Link href={`/${String(id)}`}>Details</Link>,
         <Link href={`/edit/${String(id)}`}>Edit</Link>,
         <p>Delete</p>,
       ]}>
