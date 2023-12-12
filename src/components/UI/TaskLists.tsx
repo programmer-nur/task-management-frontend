@@ -1,7 +1,9 @@
 "use client";
+
 import { Button, Input, Select } from "antd";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
+import TaskCard from "./TaskCard";
 
 const { Search } = Input;
 
@@ -40,12 +42,13 @@ const TaskLists = () => {
           ]}
         >
         </Select>
-        <Button size="middle"  type="primary"><PlusOutlined /> Creae Task</Button>
+        <Button size="middle"  type="primary"><PlusOutlined /> Create Task</Button>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-       <div>one</div>
-       <div>one</div>
-       <div>one</div>
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
       </div>
     </div>
   );
