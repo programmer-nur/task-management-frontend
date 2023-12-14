@@ -1,5 +1,4 @@
 'use client';
-
 import { Layout } from 'antd';
 import { ReactNode } from 'react';
 import AppHeader from './AppHeader';

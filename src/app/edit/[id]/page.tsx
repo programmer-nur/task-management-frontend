@@ -9,7 +9,7 @@ const TaskById = ({ params }: IProps) => {
     const {id} = params
   return (
     <RootLayout>
-      <TaskEdit />
+      <TaskEdit id={String(id)}/>
     </RootLayout>
   )
 }

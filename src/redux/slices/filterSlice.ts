@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 interface IProduct {
   status: null | boolean;
@@ -8,11 +8,11 @@ interface IProduct {
 
 const initialState: IProduct = {
   status: null,
-  searchTerm: "",
+  searchTerm: '',
 };
 
 const filterSlice = createSlice({
-  name: "filter",
+  name: 'filter',
   initialState,
   reducers: {
     filterData: (state, action: PayloadAction<boolean | null>) => {

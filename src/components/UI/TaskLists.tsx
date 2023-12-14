@@ -1,17 +1,23 @@
 'use client';
 
-import { Button, Input, Modal,Select, Spin, message } from 'antd';
+import { Button, Input, Modal, Select, Spin, message } from 'antd';
 import { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import TaskCard from './TaskCard';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { filterData, searched } from '@/redux/slices/filterSlice';
-import { useCreateTaskMutation, useGetAllTasksQuery } from '@/redux/api/taskApi';
+import {
+  useCreateTaskMutation,
+  useGetAllTasksQuery,
+} from '@/redux/api/taskApi';
 import Form from '../Form/Form';
 import InputFiled from '../Form/InputFiled';
 import InputTextArea from '../Form/InputTextArea';
 import { ITask } from '@/types/common';
-
+import InputSelectFiled from '../Form/InputSelectFiled';
+import { categories } from '@/constants';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { taskSchema } from '@/schema/taskSchema';
 const { Search } = Input;
 
 const TaskLists = () => {
@@ -19,29 +25,22 @@ const TaskLists = () => {
   const dispatch = useAppDispatch();
   const { searchTerm, status } = useAppSelector((state) => state.filter);
 
-//   create and get task
-  const [createTask] = useCreateTaskMutation()
-  const {
-    data,
-    isError,
-    isLoading,
-    error,
-  } = useGetAllTasksQuery(undefined);
+  //   create and get task
+  const [createTask] = useCreateTaskMutation();
+  const { data, isError, isLoading, error } = useGetAllTasksQuery(undefined);
 
-  const tasks = data as ITask[]
+  const tasks = data as ITask[];
 
-
-//   checked task complete or incomplete
-  const filterTasks= tasks?.filter((task:ITask)=>{
-    if(status === null){
-       return task
-    }else{
-       return task.completed === status
+  //   checked task complete or incomplete
+  const filterTasks = tasks?.filter((task: ITask) => {
+    if (status === null) {
+      return task;
+    } else {
+      return task.completed === status;
     }
+  });
 
-  })
-
-//   Task search implementation
+  //   Task search implementation
   const filteredData = filterTasks?.filter((task) => {
     const lowercaseSearchText = searchTerm.toLowerCase();
     return (
@@ -50,16 +49,22 @@ const TaskLists = () => {
     );
   });
 
-
   // decide what to render
   let content = null;
-  if (isLoading) content = <div className='flex justify-center items-center'><Spin size='large' /></div>;
+  if (isLoading)
+    content = (
+      <div className="flex justify-center items-center">
+        <Spin size="large" />
+      </div>
+    );
 
   if (!isLoading && isError)
     content = <div className="col-span-12">{error as string}</div>;
 
   if (!isError && !isLoading && filteredData?.length === 0) {
-    content = <div className="col-span-12">No Task found!</div>;
+    content = (
+      <div className="col-span-12 font-semibold text-xl">No Task found!</div>
+    );
   }
 
   if (!isError && !isLoading && filteredData?.length > 0) {
@@ -72,23 +77,22 @@ const TaskLists = () => {
     setIsModalOpen(true);
   };
 
-  const onSubmit =async (data: {title:string,description:string}) => {
-    message.loading("Creating.....");
+  const onSubmit = async (data: { title: string; description: string }) => {
+    message.loading('Creating.....');
     try {
-        const taskData = {
-            title:data.title,
-            description:data.description,
-            completed:false
-        }
+      const taskData = {
+        title: data.title,
+        description: data.description,
+        completed: false,
+      };
       const res = await createTask(taskData).unwrap();
       if (res?.id) {
-        message.success("Task Create successfully");
+        message.success('Task Create successfully');
         setIsModalOpen(false);
       }
     } catch (err: any) {
       message.error(err.message);
     }
-    
   };
   return (
     <div className="mx-8 sm:mx-24">
@@ -98,13 +102,13 @@ const TaskLists = () => {
           allowClear
           enterButton="Search"
           size="middle"
-          onSearch={(value)=>dispatch(searched(value))}
+          onSearch={(value) => dispatch(searched(value))}
           style={{ width: 300, marginRight: 16 }}
         />
 
         <Select
           placeholder="Filter Task"
-          onChange={(value)=>dispatch(filterData(value))}
+          onChange={(value) => dispatch(filterData(value))}
           size="middle"
           style={{ width: 150, marginRight: 16 }}
           options={[
@@ -129,10 +133,14 @@ const TaskLists = () => {
         }}
         footer={null}
       >
-        <Form submitHandler={onSubmit}>
+        <Form submitHandler={onSubmit} resolver={yupResolver(taskSchema)}>
           <div className="mb-4">
-            <InputFiled name="title" label="Title" />
-            <InputTextArea rows={4} name="description" label="Description" />
+            <div className="my-2">
+              <InputFiled name="title" label="Title" />
+            </div>
+            <div className="my-2">
+              <InputTextArea rows={4} name="description" label="Description" />
+            </div>
           </div>
 
           <div className="text-end">

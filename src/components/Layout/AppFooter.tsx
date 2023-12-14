@@ -12,14 +12,8 @@ const { Footer } = Layout;
 
 function AppFooter() {
   return (
-    <Footer
-      className="text-center bg-slate-300"
-    >
-      <h2
-        className="text-2xl"
-      >
-        TASK_MANAGEMENT
-      </h2>
+    <Footer className="text-center bg-slate-300">
+      <h2 className="text-2xl">TASK_MANAGEMENT</h2>
       <p className="flex justify-center items-center gap-4 py-4">
         <Link href="https://web.facebook.com">
           <FacebookFilled className="text-3xl" />
